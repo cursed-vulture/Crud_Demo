@@ -18,6 +18,7 @@ namespace Crud_Demo
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<int> ids = new List<int>();
         public class Employee
         {
             public int ID { get; set; }
@@ -31,12 +32,17 @@ namespace Crud_Demo
 
         public MainWindow()
         {
+            
+            ids.Add(1);
+            ids.Add(2);
+            ids.Add(3);
+            ids.Add(4);
             InitializeComponent();
             usersGrid.ItemsSource = Employees;          
-            Employees.Add(new Employee { ID = 1, Name = "Gustavo", Username = "gut", Address = "Rua Arterial", Age = 23 });
-            Employees.Add(new Employee { ID = 2, Name = "Miguel", Username = "mig", Address = "Rua Arterial", Age = 20 });
-            Employees.Add(new Employee { ID = 3, Name = "Barros", Username = "bar", Address = "Rua Arterial", Age = 22 });
-            Employees.Add(new Employee { ID = 4, Name = "Carranço", Username = "ran", Address = "Rua Arterial", Age = 21 });
+            Employees.Add(new Employee { ID = ids[0], Name = "Gustavo", Username = "gut", Address = "Rua Arterial", Age = 23 });
+            Employees.Add(new Employee { ID = ids[1], Name = "Miguel", Username = "mig", Address = "Rua Arterial", Age = 20 });
+            Employees.Add(new Employee { ID = ids[2], Name = "Barros", Username = "bar", Address = "Rua Arterial", Age = 22 });
+            Employees.Add(new Employee { ID = ids[3], Name = "Carranço", Username = "ran", Address = "Rua Arterial", Age = 21 });
         }
         public void Create(object sender, RoutedEventArgs e)
         {           
@@ -44,6 +50,8 @@ namespace Crud_Demo
             {
                 if (int.TryParse(ID.Text, out int id) && int.TryParse(Age.Text, out int age))
                 {
+                    id = ids.LastOrDefault() + 1;
+                    ids.Add(id);
                     Employees.Add(new Employee { ID = id, Name = Name.Text, Username = Username.Text, Address = Address.Text, Age = age });
                     ClearFields();
                     MessageBox.Show("Usuário criado com sucesso");
